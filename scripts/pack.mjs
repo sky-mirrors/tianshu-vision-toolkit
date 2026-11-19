@@ -62,7 +62,9 @@ function main() {
   }
 
   const manifest = JSON.parse(readFileSync(join(ROOT, 'tianshu.plugin.json'), 'utf8'))
-  const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: ROOT, encoding: 'utf8' }).trim()
+  // source_commit 必须指向**公开发布的那份源码**的提交：打包目录未必是同一个仓库，
+  // 所以优先取 --source-commit，其次取当前目录 HEAD。
+  const sourceCommit = args['source-commit'] ?? execFileSync('git', ['rev-parse', 'HEAD'], { cwd: ROOT, encoding: 'utf8' }).trim()
   if (!/^[0-9a-f]{40}$|^[0-9a-f]{64}$/.test(sourceCommit)) throw new Error(`bad source commit: ${sourceCommit}`)
 
   const release = {
