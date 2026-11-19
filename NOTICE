@@ -1,0 +1,37 @@
+# NOTICE — 第三方借鉴声明
+
+本项目（Tianshu Vision Toolkit）是下列 MIT 许可项目的**独立实现**。
+上游源代码未被复制或再分发；借鉴的是工具语义、参数契约、提示词结构与算法行为。
+
+## 1. Anionex/dsh-vision-toolkit
+
+- 仓库：https://github.com/Anionex/dsh-vision-toolkit
+- 许可证：MIT，Copyright (c) 2026 Anionex
+- 借鉴内容：
+  - 10 个工具的名称与参数语义（`vision_glance` / `vision_ground` / `vision_detect` /
+    `vision_crop` / `vision_pixel_diff` / `vision_dominant_colors` /
+    `vision_long_screenshot_ocr` / `vision_extract_foreground` /
+    `vision_html_screenshot` / `vision_trace`）
+  - `vision_glance` 的 OCR 与多图比较提示词结构
+  - `vision_ground` / `vision_detect` 的 0-1000 网格框格式与 "every distinct …" 类别补全
+  - Skill 的「粗到细」任务方法论框架
+- 本实现的差异：全部以纯 JavaScript 重写；不提供模型变体注册、粘贴图片接管、Settings 面板。
+
+## 2. Anionex/agent-vision-toolkit
+
+- 仓库：https://github.com/Anionex/agent-vision-toolkit
+- 许可证：MIT，Copyright (c) 2026 Anionex
+- 借鉴的算法语义：
+  - `region` 解析与越界钳制（`bin/crop`、`dominant_colors.py`）
+  - 透明像素合成白底后再统计（`pixel_diff.py`、`dominant_colors.py`）
+  - 差异按 ITU-R 601-2 权重转灰度取均值 + 网格排名（`pixel_diff.py`）
+  - 中位切分量化 + Chebyshev 距离合并 + 候选色 hard/weighted 双指标（`dominant_colors.py`）
+  - 8 邻域连通分量 + 噪点过滤 + 白底 flood fill（`extract_fg.py`）
+  - 长截图按行能量在空白行处切块 + 块间重叠（`long_screenshot_ocr.py`）
+- 本实现的差异：`vision_trace` 用「像素边界环 + RDP 简化」代替 vtracer 的分层曲线拟合，
+  因而**不提供色彩分层**（`color: true` 会在报告里标注未实现）。
+
+## 3. 其他
+
+- Chrome / Edge 无头模式（CDP）：仅作为系统已装浏览器的调用方，不打包、不再分发。
+- 若你所在司法辖区对上述借鉴有额外要求，请以两个上游仓库的 LICENSE 原文为准。

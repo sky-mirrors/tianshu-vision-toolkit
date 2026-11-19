@@ -1,0 +1,7 @@
+{
+  "name": "tianshu-vision-toolkit",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "description": "Vision toolkit for Tianshu: local crop, pixel diff and color measurement, with no vision credential required."
+}

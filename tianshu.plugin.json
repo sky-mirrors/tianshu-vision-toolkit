@@ -1,0 +1,40 @@
+{
+  "$tpi": "1.0",
+  "kind": "tianshu.plugin",
+  "id": "vision-toolkit",
+  "displayName": "视觉工具箱",
+  "version": "0.4.0",
+  "description": "本地视觉工作台：看图问答/OCR、目标定位与元素清点、按框裁切、逐像素差异、显著色测量、长截图分块 OCR、前景抠图、HTML 截图。",
+  "runtime": "agent",
+  "entry": "index.js",
+  "capabilities": [
+    "tools",
+    "storage"
+  ],
+  "contributes": {
+    "tools": [
+      { "name": "vision_glance", "description": "用已配置的视觉模型描述图片、回答问题或转写文字；可一次比较多张图" },
+      { "name": "vision_ground", "description": "定位一个点名目标，返回像素框与方位；框来自 0-1000 网格" },
+      { "name": "vision_detect", "description": "清点某一类元素的全部实例，带编号与像素框" },
+      { "name": "vision_crop", "description": "把像素框裁成 PNG 产物，可选 Lanczos 放大；越界自动 clamp" },
+      { "name": "vision_pixel_diff", "description": "逐像素比对两图，按网格排出最差区域，产出热力图与报告" },
+      { "name": "vision_dominant_colors", "description": "测量区域显著色占比；或给候选 #RRGGBB 用像素裁定真实值" },
+      { "name": "vision_long_screenshot_ocr", "description": "长截图在空白行处分块、逐块 OCR、去掉重叠合并成 Markdown" },
+      { "name": "vision_extract_foreground", "description": "按连通分量抠出图标/logo 前景，输出透明 PNG" },
+      { "name": "vision_trace", "description": "从扁平高对比位图抽取轮廓生成 SVG；坐标来自真实像素" },
+      { "name": "vision_html_screenshot", "description": "用系统已装的 Chromium 系浏览器把本地 HTML 渲染成 PNG" }
+    ],
+    "lifecycle": [],
+    "skills": [
+      "skills/vision-tools"
+    ]
+  },
+  "permissions": {
+    "fs": true,
+    "net": true,
+    "shell": true
+  },
+  "engines": {
+    "tianshu": ">=4.0.4"
+  }
+}
